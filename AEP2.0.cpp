@@ -60,6 +60,7 @@ int main() {
                     break;
                 case 4:
                     printf("Saindo...\n");
+                    return 0;
                     break;
             }
         }
@@ -70,12 +71,12 @@ int main() {
 
 void exibirMenu(int opcaoSelecionada) {
     system("cls");  
-    printf("Use as setas para navegar e Enter para selecionar uma opção:\n\n");
+    printf("Use as setas para navegar e Enter para selecionar uma opÃ§Ã£o:\n\n");
 
-    printf("%sIncluir novo usuário%s\n", (opcaoSelecionada == 0) ? GREEN : WHITE, RESET);
-    printf("%sAlterar usuário%s\n", (opcaoSelecionada == 1) ? GREEN : WHITE, RESET);
-    printf("%sExcluir usuário%s\n", (opcaoSelecionada == 2) ? GREEN : WHITE, RESET);
-    printf("%sListar usuários%s\n", (opcaoSelecionada == 3) ? GREEN : WHITE, RESET);
+    printf("%sIncluir novo usuÃ¡rio%s\n", (opcaoSelecionada == 0) ? GREEN : WHITE, RESET);
+    printf("%sAlterar usuÃ¡rio%s\n", (opcaoSelecionada == 1) ? GREEN : WHITE, RESET);
+    printf("%sExcluir usuÃ¡rio%s\n", (opcaoSelecionada == 2) ? GREEN : WHITE, RESET);
+    printf("%sListar usuÃ¡rios%s\n", (opcaoSelecionada == 3) ? GREEN : WHITE, RESET);
     printf("%sSair%s\n", (opcaoSelecionada == 4) ? GREEN : WHITE, RESET);
     printf("\nPressione 'ESC' para sair.\n");
 }
@@ -91,7 +92,7 @@ void incluirUsuario() {
     char chave[] = "AbCd";  
 
     
-    printf("Digite o nome do usuário: ");
+    printf("Digite o nome do usuÃ¡rio: ");
     fgets(usuario.nome, MAX, stdin);
     usuario.nome[strcspn(usuario.nome, "\n")] = '\0';
 
@@ -110,20 +111,20 @@ void incluirUsuario() {
     fprintf(arquivo, "%s;%s\n", nomeCriptografado, senhaCriptografada);
     fclose(arquivo);
 
-    printf("Usuário incluído com sucesso!\n");
+    printf("UsuÃ¡rio incluÃ­do com sucesso!\n");
     system("pause");
 }
 
 void alterarUsuario() {
     FILE *arquivo = fopen("usuarios.txt", "r");
     if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo ou nenhum usuário cadastrado.\n");
+        printf("Erro ao abrir o arquivo ou nenhum usuÃ¡rio cadastrado.\n");
         system("pause");
         return;
     }
 
     char nomeBusca[MAX];
-    printf("Digite o nome do usuário que deseja alterar: ");
+    printf("Digite o nome do usuÃ¡rio que deseja alterar: ");
     fgets(nomeBusca, MAX, stdin);
     nomeBusca[strcspn(nomeBusca, "\n")] = '\0';
 
@@ -143,7 +144,7 @@ void alterarUsuario() {
        
         if (strcmp(nomeDescriptografado, nomeBusca) == 0) {
             usuarioEncontrado = 1;
-            printf("Usuário encontrado!\n");
+            printf("UsuÃ¡rio encontrado!\n");
            
             printf("Digite a nova senha: ");
             fgets(usuario.senha, MAX, stdin);
@@ -169,9 +170,9 @@ void alterarUsuario() {
     rename("temp.txt", "usuarios.txt");
 
     if (usuarioEncontrado) {
-        printf("Usuário alterado com sucesso!\n");
+        printf("UsuÃ¡rio alterado com sucesso!\n");
     } else {
-        printf("Usuário não encontrado!\n");
+        printf("UsuÃ¡rio nÃ£o encontrado!\n");
     }
     system("pause");
 }
@@ -179,13 +180,13 @@ void alterarUsuario() {
 void excluirUsuario() {
     FILE *arquivo = fopen("usuarios.txt", "r");
     if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo ou nenhum usuário cadastrado.\n");
+        printf("Erro ao abrir o arquivo ou nenhum usuÃ¡rio cadastrado.\n");
         system("pause");
         return;
     }
 
     char nomeBusca[MAX];
-    printf("Digite o nome do usuário que deseja excluir: ");
+    printf("Digite o nome do usuÃ¡rio que deseja excluir: ");
     fgets(nomeBusca, MAX, stdin);
     nomeBusca[strcspn(nomeBusca, "\n")] = '\0';
 
@@ -217,9 +218,9 @@ void excluirUsuario() {
     rename("temp.txt", "usuarios.txt");
 
     if (usuarioEncontrado) {
-        printf("Usuário excluído com sucesso!\n");
+        printf("UsuÃ¡rio excluÃ­do com sucesso!\n");
     } else {
-        printf("Usuário não encontrado!\n");
+        printf("UsuÃ¡rio nÃ£o encontrado!\n");
     }
     system("pause");
 }
@@ -227,7 +228,7 @@ void excluirUsuario() {
 void listarUsuarios() {
     FILE *arquivo = fopen("usuarios.txt", "r");
     if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo ou nenhum usuário cadastrado.\n");
+        printf("Erro ao abrir o arquivo ou nenhum usuÃ¡rio cadastrado.\n");
         system("pause");
         return;
     }
@@ -236,7 +237,7 @@ void listarUsuarios() {
     char linha[MAX * 2];
     char chave[] = "AbCd"; 
 
-    printf("\nUsuários cadastrados:\n");
+    printf("\nUsuÃ¡rios cadastrados:\n");
     while (fgets(linha, sizeof(linha), arquivo)) {
         sscanf(linha, "%[^;];%s", usuario.nome, usuario.senha);
 
@@ -266,4 +267,3 @@ int CriptografarTexto(char texto[], char chave[], char textoCriptografado[]) {
 int DescriptografarTexto(char texto[], char chave[], char textoDescriptografado[]) {
     return CriptografarTexto(texto, chave, textoDescriptografado);  
 }
-
